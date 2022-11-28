@@ -1,0 +1,24 @@
+#DataSource Configuration
+spring:
+  datasource:
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/project_plan
+    username: root
+    password: ENC(iLqX7kaSFyVygd9sNHHMww==)
+
+# JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    defer-datasource-initialization: true
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        format_sql : true
+
+server:
+  port: 8000
