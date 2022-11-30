@@ -22,7 +22,7 @@ import lombok.ToString;
 @Table(name = "PRODUIT")
 public class Produit {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
 	private int quantite;
@@ -49,7 +49,7 @@ public class Produit {
 	private double pointMort;
 	
 	//Constructeur
-	public Produit(String n,int qte, double pvu, double cvu, int nbve, int cfd, Project p) {
+	public Produit(String n,int qte, double pvu, double cvu, int nbve, double cfd, Project p) {
 		this.project = p;
 		this.name = n;
 		this.quantite = qte;
@@ -68,15 +68,8 @@ public class Produit {
 		 * */
 		this.project.getProduits().add(this);
 		this.project.setChiffreAffaireTotal(this.project.getChiffreAffaireTotal()+this.chiffreAffaire);
-		/*
-		 * Il faut faire se traitement dans une fonction genererRapport() dans un service
-		 * */
-//		this.partChiffreAffaire = this.chiffreAffaire/this.project.getChiffreAffaireTotal();
-//		this.repartitionProrata = this.partChiffreAffaire*this.project.getCoutsFixesCommunes();
-//		this.margeCoutsComplets = this.margeCoutsDirects-this.repartitionProrata;
-//		this.seuilRentabilite = (this.coutsFixesDirects+this.repartitionProrata)/(this.margeCoutsVariables/this.chiffreAffaire);
-//		this.nombreVentesNecessaires = (int)(this.seuilRentabilite/this.prixVenteUnitaire);
-//		this.pointMort = (this.seuilRentabilite/(this.nombreVenteEstimeParSemaine*this.prixVenteUnitaire));
+
+
 
 	}
 	

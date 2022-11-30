@@ -5,8 +5,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import io.kadev.dto.ProduitRequestDto;
 import io.kadev.dto.ProjectRequestDto;
+import io.kadev.models.Produit;
+import io.kadev.models.Project;
 import io.kadev.services.BusinessLogicService;
 
 @SpringBootApplication
@@ -24,12 +25,10 @@ public class ProjectPlanApplication implements CommandLineRunner{
 	private BusinessLogicService service;
 	@Override
 	public void run(String... args) throws Exception {
-		ProjectRequestDto p1 = new ProjectRequestDto("Patisserie",3500.0);
-//		ProduitRequestDto prod2 = new ProduitRequestDto("Pain",26000,16.0,3.3,281,110.0,2L);
+		ProjectRequestDto p1 = new Project("Patisserie",3500,);
+		Produit prod1 = new Produit("Pain",25000,12,3,211,120000,p1);
+		Produit prod2 = new Produit("Petit-pain",42000,9,2,123,160000,p1);
 		service.createNewProject(p1);
-		
-		ProduitRequestDto prod1 = new ProduitRequestDto("Pain",25000,12.0,3.0,211,120.0,1L);
-		service.createNewProduit(prod1);
 	}
 
 	/*

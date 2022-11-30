@@ -22,5 +22,6 @@ public class ProduitRequestDto {
 	private int nombreVenteEstimeParSemaine;
 	@Min(value = 0, message = "Les couts fixes directs doivent etre sup à 0!")
 	private double coutsFixesDirects;
+	@NotBlank(message = "Must contain a project ID!")
 	private Long project_id;
 }

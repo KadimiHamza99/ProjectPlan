@@ -11,7 +11,7 @@ public class ProduitResponseDto {
 	private Long id;
 	private String name;
 	private int quantite;
-	private double PrixVenteUnitaire;
+	private double prixVenteUnitaire;
 	private double CoutVariableUnitaire;
 	private int nombreVenteEstimeParSemaine;
 	private double coutsFixesDirects;
