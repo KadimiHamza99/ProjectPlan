@@ -4,19 +4,17 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.UniqueElements;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Data @NoArgsConstructor @AllArgsConstructor @Builder
+@Data @NoArgsConstructor @AllArgsConstructor @Builder @EqualsAndHashCode
 public class ProjectRequestDto {
 	@NotBlank(message = "Un projet doit avoir un nom !")
-	@UniqueElements(message = "Un nom de projet doit etre unique !")
 	private String nom;
-	@Min(value = 0)
+	@Min(value = 0,message="Les couts fixes ne peuvent pas etre negatifs !")
 	@NotNull
 	private double coutsFixesCommunes;
 }

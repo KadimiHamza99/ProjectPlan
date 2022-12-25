@@ -9,7 +9,6 @@ import io.kadev.dto.ProduitRequestDto;
 import io.kadev.dto.ProduitResponseDto;
 import io.kadev.dto.ProjectRequestDto;
 import io.kadev.dto.ProjectResponseDto;
-import io.kadev.exceptions.ProjectNotFoundException;
 import io.kadev.models.Produit;
 import io.kadev.models.Project;
 import io.kadev.repositories.ProjectRepository;
@@ -36,6 +35,8 @@ public class ValueMapper {
 		projectResponseDto.setNom(project.getNom());
 		projectResponseDto.setCoutsFixesCommunes(project.getCoutsFixesCommunes());
 		projectResponseDto.setProduits(project.getProduits());
+		projectResponseDto.setResultatsExploitation(project.getResultatsExploitation());
+		projectResponseDto.setQuantiteTotal(project.getQuantiteTotal());
 		return projectResponseDto;
 	}
 

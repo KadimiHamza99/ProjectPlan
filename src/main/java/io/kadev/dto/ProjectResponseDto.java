@@ -13,5 +13,7 @@ public class ProjectResponseDto {
 	private Long id;
 	private String nom;
 	private double coutsFixesCommunes;
+	private double resultatsExploitation;
+	private int quantiteTotal;
 	private List<Produit> produits = Arrays.asList();
 }

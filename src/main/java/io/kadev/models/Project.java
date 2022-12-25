@@ -33,6 +33,8 @@ public class Project {
 	private String nom;
 	private double coutsFixesCommunes;
 	private double chiffreAffaireTotal;
+	private double resultatsExploitation;
+	private int quantiteTotal;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Produit> produits = new ArrayList<Produit>(Arrays.asList());

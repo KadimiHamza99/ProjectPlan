@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,7 +34,8 @@ public class Produit {
 	private double coutsFixesDirects;
 	private boolean rentable;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.MERGE , fetch = FetchType.EAGER)
 	private Project project;
 
 	/*
@@ -47,30 +50,5 @@ public class Produit {
 	private double seuilRentabilite;
 	private int nombreVentesNecessaires;
 	private double pointMort;
-	
-	//Constructeur
-	public Produit(String n,int qte, double pvu, double cvu, int nbve, double cfd, Project p) {
-		this.project = p;
-		this.name = n;
-		this.quantite = qte;
-		this.prixVenteUnitaire = pvu;
-		this.CoutVariableUnitaire = cvu;
-		this.nombreVenteEstimeParSemaine = nbve;
-		this.coutsFixesDirects = cfd;
-		/*
-		 * Calculer CA,MCV,MCD
-		 * */
-		this.chiffreAffaire = this.quantite*this.prixVenteUnitaire;
-		this.margeCoutsVariables = this.chiffreAffaire - this.CoutVariableUnitaire*this.quantite;
-		this.margeCoutsDirects = this.margeCoutsVariables - this.coutsFixesDirects;	
-		/*
-		 * Ajouter le produit dans la liste des produit du projet
-		 * */
-		this.project.getProduits().add(this);
-		this.project.setChiffreAffaireTotal(this.project.getChiffreAffaireTotal()+this.chiffreAffaire);
-
-
-
-	}
 	
 }

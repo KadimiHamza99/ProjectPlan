@@ -6,9 +6,10 @@ import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Data @NoArgsConstructor @AllArgsConstructor @Builder
+@Data @NoArgsConstructor @AllArgsConstructor @Builder @EqualsAndHashCode
 public class ProduitRequestDto {
 	@NotBlank(message = "Un produit doit avoir un nom!")
 	private String name;
