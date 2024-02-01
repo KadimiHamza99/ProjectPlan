@@ -1,8 +1,9 @@
 package io.kadev.dto;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +21,7 @@ public class ProduitRequestDto {
 	@Min(value = 0, message = "Le cout variable unitaire doit etre sup à 0!")
 	private double CoutVariableUnitaire;
 	@Min(value = 0, message = "Le nombre de vente éstimé doit etre sup à 0!")
-	private int nombreVenteEstimeParSemaine;
+	private int nombreVenteEstimeParMois;
 	@Min(value = 0, message = "Les couts fixes directs doivent etre sup à 0!")
 	private double coutsFixesDirects;
 	@NotBlank(message = "Must contain a project ID!")

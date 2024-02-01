@@ -24,6 +24,6 @@ public class ProduitResponseDto {
 	private double repartitionProrata;
 	private double margeCoutsComplets;
 	private double seuilRentabilite;
-	private int nombreVentesNecessaires;
+	private double nombreVentesNecessaires;
 	private double pointMort;
 }

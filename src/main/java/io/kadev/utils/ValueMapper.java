@@ -53,7 +53,7 @@ public class ValueMapper {
 		produit.setQuantite(produitRequestDto.getQuantite());
 		produit.setPrixVenteUnitaire(produitRequestDto.getPrixVenteUnitaire());
 		produit.setCoutVariableUnitaire(produitRequestDto.getCoutVariableUnitaire());
-		produit.setNombreVenteEstimeParSemaine(produitRequestDto.getNombreVenteEstimeParSemaine());
+		produit.setNombreVenteEstimeParMois(produitRequestDto.getNombreVenteEstimeParMois());
 		produit.setCoutsFixesDirects(produitRequestDto.getCoutsFixesDirects());
 		// Il faut developper une methode dans un service qui contient getProjectById
 		produit.setProject(project);
@@ -74,7 +74,7 @@ public class ValueMapper {
 		produitResponseDto.setMargeCoutsDirects(produit.getMargeCoutsDirects());
 		produitResponseDto.setMargeCoutsVariables(produit.getMargeCoutsVariables());
 		produitResponseDto.setName(produit.getName());
-		produitResponseDto.setNombreVenteEstimeParSemaine(produit.getNombreVenteEstimeParSemaine());
+		produitResponseDto.setNombreVenteEstimeParSemaine(produit.getNombreVenteEstimeParMois());
 		produitResponseDto.setNombreVentesNecessaires(produit.getNombreVentesNecessaires());
 		produitResponseDto.setPartChiffreAffaire(produit.getPartChiffreAffaire());
 		produitResponseDto.setPointMort(produit.getPointMort());

@@ -4,8 +4,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.6</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<version>3.1.4</version>
+		<relativePath />
 	</parent>
 	<groupId>io.kadev</groupId>
 	<artifactId>ProjectPlan</artifactId>
@@ -13,7 +13,7 @@
 	<name>ProjectPlan</name>
 	<description>Digitalisation des demandes DSI </description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>21</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -65,6 +65,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
 			<plugin>
 				<groupId>com.github.ulisesbocchio</groupId>
 				<artifactId>jasypt-maven-plugin</artifactId>

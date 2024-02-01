@@ -1,16 +1,8 @@
 package io.kadev.models;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,10 +22,12 @@ public class Produit {
 	private int quantite;
 	private double prixVenteUnitaire;
 	private double CoutVariableUnitaire;
-	private int nombreVenteEstimeParSemaine;
+	private int nombreVenteEstimeParMois;
 	private double coutsFixesDirects;
 	private boolean rentable;
-	
+	//Nombre de mois pour la liquidation du stock
+	private double liquidationProduit;
+
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.MERGE , fetch = FetchType.EAGER)
 	private Project project;
@@ -48,7 +42,7 @@ public class Produit {
 	private double repartitionProrata;
 	private double margeCoutsComplets;
 	private double seuilRentabilite;
-	private int nombreVentesNecessaires;
+	private double nombreVentesNecessaires;
 	private double pointMort;
 	
 }
