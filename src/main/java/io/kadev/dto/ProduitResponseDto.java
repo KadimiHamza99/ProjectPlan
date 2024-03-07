@@ -1,6 +1,7 @@
 package io.kadev.dto;
 
 import io.kadev.models.Project;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,4 +27,7 @@ public class ProduitResponseDto {
 	private double seuilRentabilite;
 	private double nombreVentesNecessaires;
 	private double pointMort;
+	private double objectifGeneral;
+	private double objectifParJour;
+	private double prixVenteOptimal;
 }

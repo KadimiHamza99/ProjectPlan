@@ -20,10 +20,12 @@ public class ProduitRequestDto {
 	private double prixVenteUnitaire;
 	@Min(value = 0, message = "Le cout variable unitaire doit etre sup à 0!")
 	private double CoutVariableUnitaire;
-	@Min(value = 0, message = "Le nombre de vente éstimé doit etre sup à 0!")
-	private int nombreVenteEstimeParMois;
 	@Min(value = 0, message = "Les couts fixes directs doivent etre sup à 0!")
 	private double coutsFixesDirects;
 	@NotBlank(message = "Must contain a project ID!")
 	private Long project_id;
+	@NotBlank(message = "Must contain objectif general")
+	private int objectifGeneral;
+	@NotBlank(message = "Must contain objectif par jour")
+	private int objectifParJour;
 }

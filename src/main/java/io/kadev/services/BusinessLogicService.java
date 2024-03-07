@@ -3,6 +3,7 @@ package io.kadev.services;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 
@@ -81,64 +82,44 @@ public class BusinessLogicService implements BusinessLogicInterface {
 	 * */
 	public ProjectResponseDto calculMetrics(Long projectId) throws BusinessLogicException {
 		ProjectResponseDto projectResponseDto;
+		AtomicReference<Double> resultatExploitation = new AtomicReference<>((double) 0);
 		try {
 			log.info("BusinessLogicService:calculMetrics execution started");
+
 			Project project = projectRepo.findById(projectId).orElseThrow(()->new ProjectNotFoundException("Exception occured while fetching the project from the DB !"));
 			project.getProduits().stream().forEach(produit->{
 				int quantite = produit.getQuantite();
-				double coutsFixesParProduit = (produit.getCoutsFixesDirects()) + (produit.getProject().getCoutsFixesCommunes()/produit.getProject().getProduits().size());
-				double chiffreAffaire = quantite*produit.getPrixVenteUnitaire();
-				double margeCoutsVariables = chiffreAffaire - produit.getQuantite()*produit.getCoutVariableUnitaire();
-				double margeCoutsDirects = chiffreAffaire - produit.getQuantite()*produit.getCoutVariableUnitaire();
-				double partChiffreAffaire = chiffreAffaire / produit.getProject().getChiffreAffaireTotal();
-				double repartitionProrata = coutsFixesParProduit/chiffreAffaire;
-				double margeCoutsComplets = chiffreAffaire - (produit.getQuantite()*produit.getCoutVariableUnitaire()) - coutsFixesParProduit;
-				double seuilRentabilite = coutsFixesParProduit/margeCoutsVariables;
-				double nombreVentesNecessaires = coutsFixesParProduit / (produit.getPrixVenteUnitaire()-produit.getCoutVariableUnitaire());
-				double pointMort = nombreVentesNecessaires/produit.getNombreVenteEstimeParMois();
-				boolean rentable = pointMort < 12 ? true : false;
-				double liquidationProduit = quantite/nombreVentesNecessaires;
-
-				/*
-				* représente le montant total des ventes réalisées par une entreprise sur une période donnée.
-				* */
-				produit.setChiffreAffaire(chiffreAffaire);
-				/*
-				* c'est ce qui reste du chiffre d'affaires une fois soustraits les coûts directement liés à la production
-				* */
-				produit.setMargeCoutsVariables(margeCoutsVariables);
-				/*
-				*  le montant restant du chiffre d'affaires après avoir soustrait les coûts directs liés à la production
-				* */
-				produit.setMargeCoutsDirects(margeCoutsDirects);
-				/*
-				* la portion de revenus générée par un produit
-				* */
-				produit.setPartChiffreAffaire(partChiffreAffaire);
-				/*
-				* parts proportionnelles en fonction de divers facteurs tels que la contribution financière ou la quantité
-				* */
-				produit.setRepartitionProrata(repartitionProrata);
-				/*
-				* le bénéfice obtenu après avoir déduit tous les coûts, directs et indirects, du chiffre d'affaires
-				* */
-				produit.setMargeCoutsComplets(margeCoutsComplets);
-				/*
-				* Le chiffre d'affaires minimum à réaliser pour être rentable
-				* */
+				double prixVenteUnitaire = produit.getPrixVenteUnitaire();
+				double coutVariableUnitaire = produit.getCoutVariableUnitaire();
+				double coutFixesDirect = produit.getCoutsFixesDirects();
+				double chargesFixesCommunes = project.getChargesFixesCommunes();
+				double chiffreAffaireProduit = quantite * prixVenteUnitaire;
+				double margeCoutsDirect = chiffreAffaireProduit - quantite*coutVariableUnitaire - coutFixesDirect;
+				double partCA = chiffreAffaireProduit/project.getChiffreAffaireTotal();
+				double repartitionProrata = partCA*chargesFixesCommunes;
+				double margeCoutComplet = margeCoutsDirect - repartitionProrata;
+				produit.setChiffreAffaire(chiffreAffaireProduit);
+				produit.setMargeCoutsDirects(margeCoutsDirect);
+				produit.setPartChiffreAffaire(partCA);
+				produit.setRepartitionCFCProrataCA(repartitionProrata);
+				produit.setMargeCoutsComplets(margeCoutComplet);
+				resultatExploitation.updateAndGet(v -> new Double(
+						(v + margeCoutComplet)));
+				double tauxMargeCoutsVariables = (chiffreAffaireProduit-quantite*coutVariableUnitaire)/chiffreAffaireProduit;
+				double seuilRentabilite = (coutFixesDirect+repartitionProrata)/tauxMargeCoutsVariables;
 				produit.setSeuilRentabilite(seuilRentabilite);
-				/*
-				 * Le nombre de vente necessaire pour que notre projet soit rentable
-				 * */
+				//Nombre de ventes necessaires est plus grand que l'objectif = projet deficitaire
+				double nombreVentesNecessaires = seuilRentabilite/prixVenteUnitaire;
 				produit.setNombreVentesNecessaires(nombreVentesNecessaires);
-				/*
-				 * Le nombre de semaines pour que notre projet soit rentable
-				 * */
-				produit.setPointMort(pointMort);
-				produit.setRentable(rentable);
-				produit.setLiquidationProduit(liquidationProduit);
-				project.setResultatsExploitation(project.getResultatsExploitation()+margeCoutsComplets);
+				produit.setMargeCoutsVariables(tauxMargeCoutsVariables);
+				produit.setPointMort(nombreVentesNecessaires/ produit.getObjectifParJour());
+				int objectifParAnnee = produit.getObjectifParJour()*200;
+				double prixVenteOptimal = ((repartitionProrata+coutFixesDirect)/ objectifParAnnee) + produit.getPrixVenteUnitaire();
+				produit.setPrixVenteOptimal(prixVenteOptimal);
+				log.info("SR = {}" ,seuilRentabilite);
 			});
+			log.info(""+resultatExploitation.get());
+			project.setResultatsExploitation(resultatExploitation.get());
 			Project projectResult = projectRepo.save(project);
 			projectResponseDto = ValueMapper.toProjectResponseDto(projectResult);
 			log.debug("BusinessLogicService:calculMetrics value received from DB {}",projectResult);
@@ -160,7 +141,7 @@ public class BusinessLogicService implements BusinessLogicInterface {
 			log.info("BusinessLogicService:updateProject Execution started");
 			Project projectToUpdate = projectRepo.findById(id).orElseThrow(()->new ProjectNotFoundException("Project Not found"));
 			projectToUpdate.setNom(projectRequestDto.getNom());
-			projectToUpdate.setCoutsFixesCommunes(projectRequestDto.getCoutsFixesCommunes());
+			projectToUpdate.setChargesFixesCommunes(projectRequestDto.getChargeFixesCommunes());
 			projectRepo.save(projectToUpdate);
 			log.info("BusinessLogicService:updateProject updated project have been saved");
 			projectResponse = ValueMapper.toProjectResponseDto(projectToUpdate);
@@ -182,7 +163,6 @@ public class BusinessLogicService implements BusinessLogicInterface {
 			produitToUpdate.setName(produitRequestDto.getName());
 			produitToUpdate.setCoutsFixesDirects(produitRequestDto.getCoutsFixesDirects());
 			produitToUpdate.setCoutVariableUnitaire(produitRequestDto.getCoutVariableUnitaire());
-			produitToUpdate.setNombreVenteEstimeParMois(produitRequestDto.getNombreVenteEstimeParMois());
 			produitToUpdate.setPrixVenteUnitaire(produitRequestDto.getPrixVenteUnitaire());
 			produitToUpdate.setQuantite(produitRequestDto.getQuantite());
 			produitRepo.save(produitToUpdate);

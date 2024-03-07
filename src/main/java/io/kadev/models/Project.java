@@ -23,7 +23,7 @@ public class Project {
 	private Long id;
 	@Column(unique = true)
 	private String nom;
-	private double coutsFixesCommunes;
+	private double chargesFixesCommunes;
 	private double chiffreAffaireTotal;
 	private double resultatsExploitation;
 	private int quantiteTotal;
@@ -34,7 +34,7 @@ public class Project {
 	// Constructeur
 	public Project(String n, double cfc) {
 		this.nom = n;
-		this.coutsFixesCommunes = cfc;
+		this.chargesFixesCommunes = cfc;
 		this.chiffreAffaireTotal = 0;
 		produits.stream().forEach(p -> this.chiffreAffaireTotal = p.getChiffreAffaire());
 	}

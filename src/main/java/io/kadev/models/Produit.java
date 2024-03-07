@@ -22,11 +22,7 @@ public class Produit {
 	private int quantite;
 	private double prixVenteUnitaire;
 	private double CoutVariableUnitaire;
-	private int nombreVenteEstimeParMois;
 	private double coutsFixesDirects;
-	private boolean rentable;
-	//Nombre de mois pour la liquidation du stock
-	private double liquidationProduit;
 
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.MERGE , fetch = FetchType.EAGER)
@@ -39,10 +35,13 @@ public class Produit {
 	private double margeCoutsVariables;
 	private double margeCoutsDirects;
 	private double partChiffreAffaire;
-	private double repartitionProrata;
+	private double repartitionCFCProrataCA;
 	private double margeCoutsComplets;
 	private double seuilRentabilite;
 	private double nombreVentesNecessaires;
+	private int objectifGeneral;
+	private int objectifParJour;
 	private double pointMort;
+	private double prixVenteOptimal;
 	
 }

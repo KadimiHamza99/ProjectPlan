@@ -21,7 +21,7 @@ public class ValueMapper {
 	public static Project toProjectEntity(ProjectRequestDto projectRequestDto) {
 		Project project = new Project();
 		project.setNom(projectRequestDto.getNom());
-		project.setCoutsFixesCommunes(projectRequestDto.getCoutsFixesCommunes());
+		project.setChargesFixesCommunes(projectRequestDto.getChargeFixesCommunes());
 		return project;
 	}
 
@@ -33,7 +33,7 @@ public class ValueMapper {
 		ProjectResponseDto projectResponseDto = new ProjectResponseDto();
 		projectResponseDto.setId(project.getId());
 		projectResponseDto.setNom(project.getNom());
-		projectResponseDto.setCoutsFixesCommunes(project.getCoutsFixesCommunes());
+		projectResponseDto.setCoutsFixesCommunes(project.getChargesFixesCommunes());
 		projectResponseDto.setProduits(project.getProduits());
 		projectResponseDto.setResultatsExploitation(project.getResultatsExploitation());
 		projectResponseDto.setQuantiteTotal(project.getQuantiteTotal());
@@ -53,8 +53,9 @@ public class ValueMapper {
 		produit.setQuantite(produitRequestDto.getQuantite());
 		produit.setPrixVenteUnitaire(produitRequestDto.getPrixVenteUnitaire());
 		produit.setCoutVariableUnitaire(produitRequestDto.getCoutVariableUnitaire());
-		produit.setNombreVenteEstimeParMois(produitRequestDto.getNombreVenteEstimeParMois());
 		produit.setCoutsFixesDirects(produitRequestDto.getCoutsFixesDirects());
+		produit.setObjectifGeneral(produitRequestDto.getObjectifGeneral());
+		produit.setObjectifParJour(produitRequestDto.getObjectifParJour());
 		// Il faut developper une methode dans un service qui contient getProjectById
 		produit.setProject(project);
 		return produit;
@@ -74,16 +75,17 @@ public class ValueMapper {
 		produitResponseDto.setMargeCoutsDirects(produit.getMargeCoutsDirects());
 		produitResponseDto.setMargeCoutsVariables(produit.getMargeCoutsVariables());
 		produitResponseDto.setName(produit.getName());
-		produitResponseDto.setNombreVenteEstimeParSemaine(produit.getNombreVenteEstimeParMois());
 		produitResponseDto.setNombreVentesNecessaires(produit.getNombreVentesNecessaires());
 		produitResponseDto.setPartChiffreAffaire(produit.getPartChiffreAffaire());
-		produitResponseDto.setPointMort(produit.getPointMort());
 		produitResponseDto.setPrixVenteUnitaire(produit.getPrixVenteUnitaire());
 		produitResponseDto.setProject(produit.getProject());
 		produitResponseDto.setQuantite(produit.getQuantite());
-		produitResponseDto.setRentable(produit.isRentable());
-		produitResponseDto.setRepartitionProrata(produit.getRepartitionProrata());
+		produitResponseDto.setRepartitionProrata(produit.getRepartitionCFCProrataCA());
 		produitResponseDto.setSeuilRentabilite(produit.getSeuilRentabilite());
+		produitResponseDto.setObjectifGeneral(produit.getObjectifGeneral());
+		produitResponseDto.setObjectifParJour(produit.getObjectifParJour());
+		produitResponseDto.setPrixVenteOptimal(produit.getPrixVenteOptimal());
+		produit.setPointMort(produit.getPointMort());
 		return produitResponseDto;
 	}
 
