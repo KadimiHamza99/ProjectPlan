@@ -25,12 +25,12 @@ public class ProjectPlanApplication implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		ProjectRequestDto p1 = new ProjectRequestDto("Chocolatier",300000);
+		ProjectRequestDto p1 = new ProjectRequestDto("Chocolatier",5000);
 		service.createNewProject(p1);
 		
-		ProduitRequestDto prod1 = new ProduitRequestDto("T1",5000,70,30,80000,1L,12000,50);
-		ProduitRequestDto prod2 = new ProduitRequestDto("T2",2000,120,40,100000,1L,12000,50);
-		ProduitRequestDto prod3 = new ProduitRequestDto("T3",800,800,420,210000,1L,12000,50);
+		ProduitRequestDto prod1 = new ProduitRequestDto("T1",25000,12,3,120000,1L,20000,1);
+		ProduitRequestDto prod2 = new ProduitRequestDto("T2",42000,9,2,160000,1L,40000,1);
+		ProduitRequestDto prod3 = new ProduitRequestDto("T3",12000,16,6,55000,1L,10000,70);
 		service.createNewProduit(prod1);
 		service.createNewProduit(prod2);
 		service.createNewProduit(prod3);

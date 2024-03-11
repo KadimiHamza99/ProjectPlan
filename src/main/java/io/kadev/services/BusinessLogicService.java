@@ -116,7 +116,6 @@ public class BusinessLogicService implements BusinessLogicInterface {
 				int objectifParAnnee = produit.getObjectifParJour()*200;
 				double prixVenteOptimal = ((repartitionProrata+coutFixesDirect)/ objectifParAnnee) + produit.getPrixVenteUnitaire();
 				produit.setPrixVenteOptimal(prixVenteOptimal);
-				log.info("SR = {}" ,seuilRentabilite);
 			});
 			log.info(""+resultatExploitation.get());
 			project.setResultatsExploitation(resultatExploitation.get());

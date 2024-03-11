@@ -1,0 +1,55 @@
+input CreateProjectWithProductsInput {
+    nom: String!
+    chargeFixesCommunes: Float!
+    products: [ProductInput]
+}
+
+input ProductInput {
+    name: String!
+    quantite: Int!
+    prixVenteUnitaire: Float!
+    coutVariableUnitaire: Float!
+    coutsFixesDirects: Float!
+    objectifGeneral: Int!
+    objectifParJour: Int!
+}
+
+type ProjectResponseDto{
+    id: ID!
+    nom: String!
+    coutsFixesCommunes: Int!
+    resultatsExploitation: Float!
+    quantiteTotal: Int!
+    produits: [ProduitResponseDto]
+}
+
+type ProduitResponseDto{
+    id: ID!
+    name: String!
+    quantite: Int!
+    prixVenteUnitaire: Float!
+    CoutVariableUnitaire: Float!
+    nombreVenteEstimeParSemaine: Int!
+    coutsFixesDirects: Float!
+    rentable: Boolean!
+    chiffreAffaire: Float!
+    margeCoutsVariables: Float!
+    margeCoutsDirects: Float!
+    partChiffreAffaire: Float!
+    repartitionProrata: Float!
+    margeCoutsComplets: Float!
+    seuilRentabilite: Float!
+    nombreVentesNecessaires: Float!
+    pointMort: Float!
+    objectifGeneral: Float!
+    objectifParJour: Float!
+    prixVenteOptimal: Float!
+}
+
+type Query {
+    getProjects(a: Int): [ProjectResponseDto]!
+}
+
+type Mutation {
+    createProjectWithProducts(input :CreateProjectWithProductsInput) : Boolean!
+}
