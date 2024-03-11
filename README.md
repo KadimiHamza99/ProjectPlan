@@ -23,21 +23,20 @@ Ce projet personnel vise à fournir une plateforme d'analyse de performance des 
 - Utilisation de mappings pour la réception des requêtes et le retour des résultats aux clients.
 - Gestion centralisée des erreurs avec `@RestControllerAdvice` et `@ExceptionHandler` pour une meilleure robustesse.
 
+## Prérequis
+- Serveur de base de données MySQL
+- Java 11 ou plus
 ## Guide d'Utilisation
 
 1. Clonez le dépôt du projet.
-2. Configurez votre base de données MySQL.
-3. Exécutez le backend Java Spring Boot.
-4. Exécutez le frontend Angular.
-5. Explorez les différentes fonctionnalités de l'interface utilisateur pour analyser les performances des projets.
+2. Configurez votre base de données MySQL si nécessaire sur application.yml
+3. Exécutez la commande mvn clean install pour télécharger les dépendances nécessaires.
+4. Exécutez le frontend Angular (existe dans le répertoire angular-app).
+5. Vous pouvez lancer l'exécution de l'application à l'aide d'un editeur de code (IntelliJ ou Eclipse) ou bien en ligne de commande en tapant mvn springboot:run .
 
 ## Contributions
 
 Les contributions sont les bienvenues! Si vous avez des idées d'amélioration ou si vous souhaitez signaler un problème, n'hésitez pas à ouvrir une issue ou à soumettre une pull request.
-
-## License
-
-Ce projet est sous licence MIT. Consultez le fichier `LICENSE` pour plus de détails.
 
 ---
 
