@@ -24,32 +24,35 @@ type ProjectResponseDto{
 }
 
 type ProduitResponseDto{
-    id: ID!
-    name: String!
-    quantite: Int!
-    prixVenteUnitaire: Float!
-    CoutVariableUnitaire: Float!
-    nombreVenteEstimeParSemaine: Int!
-    coutsFixesDirects: Float!
-    rentable: Boolean!
-    chiffreAffaire: Float!
-    margeCoutsVariables: Float!
-    margeCoutsDirects: Float!
-    partChiffreAffaire: Float!
-    repartitionProrata: Float!
-    margeCoutsComplets: Float!
-    seuilRentabilite: Float!
-    nombreVentesNecessaires: Float!
-    pointMort: Float!
-    objectifGeneral: Float!
-    objectifParJour: Float!
-    prixVenteOptimal: Float!
+    id: ID
+    name: String
+    quantite: Int
+    prixVenteUnitaire: Float
+    CoutVariableUnitaire: Float
+    nombreVenteEstimeParSemaine: Int
+    coutsFixesDirects: Float
+    rentable: Boolean
+    chiffreAffaire: Float
+    margeCoutsVariables: Float
+    margeCoutsDirects: Float
+    partChiffreAffaire: Float
+    repartitionProrata: Float
+    margeCoutsComplets: Float
+    seuilRentabilite: Float
+    nombreVentesNecessaires: Float
+    pointMort: Float
+    objectifGeneral: Float
+    objectifParJour: Float
+    prixVenteOptimal: Float
 }
 
 type Query {
-    getProjects(a: Int): [ProjectResponseDto]!
+    getProjects : [ProjectResponseDto]
+    getProductsForProject(id: Int!) : [ProduitResponseDto]
 }
 
 type Mutation {
     createProjectWithProducts(input :CreateProjectWithProductsInput) : Boolean!
+    deleteProject(id: Int!) : Boolean!
+    deleteProduct(projectId: Int!, productId: Int!) : Boolean!
 }

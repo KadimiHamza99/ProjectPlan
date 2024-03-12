@@ -15,6 +15,7 @@ public interface BusinessLogicInterface {
 	ProduitResponseDto updateProduit(ProduitRequestDto produitRequestDto, Long produitId);
 	boolean deleteProject(Long projectId);
 	boolean deleteProduit(Long produitId);
+	boolean deleteProduit(Long projectId, Long produitId);
 	Collection<ProjectResponseDto> getAllProjects();
 	Collection<ProduitResponseDto> getAllProjectProduits(Long projectId);
 	ProjectResponseDto getProject(Long id);

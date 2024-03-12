@@ -3,6 +3,7 @@ package io.kadev.services;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -204,6 +205,21 @@ public class BusinessLogicService implements BusinessLogicInterface {
 		}catch(Exception e) {
 			log.error("BusinessLogicService:deleteProduit An error occured while deleting produit");
 			throw new BusinessLogicException("Exception occured while deleting the produit with the id: "+id+" from DB");
+		}
+	}
+	@Override
+	public boolean deleteProduit(Long projectId, Long productId) throws BusinessLogicException {
+		try {
+			log.info("BusinessLogicService:deleteProduit Execution started");
+			Produit produit = produitRepo.findByIdAndProjectId(projectId, productId).orElseThrow(()->new ProduitNotFoundException("Produit with id : "+productId+"not found in the DB"));
+			produit.getProject().getProduits().remove(produit);
+			produit.setProject(null);
+			produitRepo.delete(produit);
+			log.info("BusinessLogicService:deleteProduit Produit deleted from DB");
+			return true;
+		}catch(Exception e) {
+			log.error("BusinessLogicService:deleteProduit An error occured while deleting produit");
+			throw new BusinessLogicException("Exception occured while deleting the produit with the id: "+productId+" from DB");
 		}
 	}
 	/*

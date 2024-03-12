@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Data
@@ -12,5 +13,5 @@ import java.util.Collection;
 public class CreateProjectWithProductsInput {
     private String nom;
     private float chargeFixesCommunes;
-    private Collection<ProductInput> products;
+    private ArrayList<ProductInput> products;
 }
