@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import io.kadev.dto.ProduitRequestDto;
 import io.kadev.dto.ProduitResponseDto;
 import io.kadev.services.BusinessLogicInterface;
-import io.kadev.utils.ValueMapper;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -33,9 +32,7 @@ public class ProductController {
 	 * */
 	@GetMapping("/get/{id}")
 	public ResponseEntity<ProduitResponseDto> getProduct(@PathVariable int id){
-		log.info("ProductController::getProduct getting the product with id = {}", id);
 		ProduitResponseDto response = service.getProduit((long) id);
-		log.info("ProductController::getProduct response => {}", ValueMapper.jsonAsString(response));
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	/*
@@ -43,9 +40,7 @@ public class ProductController {
 	 * */
 	@PostMapping("/create")
 	public ResponseEntity<ProduitResponseDto> createNewProduct(@RequestBody @Valid ProduitRequestDto product){
-		log.info("ProductController::createNewProduct request body {}", ValueMapper.jsonAsString(product));
 		ProduitResponseDto response = service.createNewProduit(product);
-		log.info("ProductController::createNewProduct response {}", ValueMapper.jsonAsString(response));
 		return new ResponseEntity<>(response,HttpStatus.CREATED);
 	}
 	/*
@@ -54,9 +49,7 @@ public class ProductController {
 	@PutMapping("/update/{id}")
 	public ResponseEntity<ProduitResponseDto> updateProduct(@PathVariable int id,
 															@RequestBody @Valid ProduitRequestDto product){
-		log.info("ProductController::updateProduct request body {}", ValueMapper.jsonAsString(product));
 		ProduitResponseDto response = service.updateProduit(product, (long) id);
-		log.info("ProductController::updateProduct response body {}", ValueMapper.jsonAsString(product));
 		return new ResponseEntity<>(response,HttpStatus.CREATED);
 	}
 	/*
@@ -64,9 +57,7 @@ public class ProductController {
 	 * */
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Boolean> deleteProduct(@PathVariable int id){
-		log.info("ProductController::deleteProduct delete the product with the id = {}", id);
 		Boolean flag = service.deleteProduit((long) id);
-		log.info("ProductController::deleteProduct is the product deleted = {}", flag);
 		return new ResponseEntity<>(flag,HttpStatus.OK);
 	}
 	

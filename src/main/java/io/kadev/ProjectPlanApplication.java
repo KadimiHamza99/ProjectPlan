@@ -38,8 +38,4 @@ public class ProjectPlanApplication implements CommandLineRunner{
 		service.calculMetrics(1L);
 	}
 
-	/*
-	 * La partie des tests est finie
-	 * */
-
 }
