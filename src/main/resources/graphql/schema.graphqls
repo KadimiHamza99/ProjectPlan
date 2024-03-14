@@ -20,7 +20,7 @@ type ProjectResponseDto{
     coutsFixesCommunes: Int!
     resultatsExploitation: Float!
     quantiteTotal: Int!
-    produits: [ProduitResponseDto]
+    products: [ProduitResponseDto]
 }
 
 type ProduitResponseDto{
@@ -52,7 +52,7 @@ type Query {
 }
 
 type Mutation {
-    createProjectWithProducts(input :CreateProjectWithProductsInput) : Boolean!
+    createProjectWithProducts(input :CreateProjectWithProductsInput) : ProjectResponseDto!
     deleteProject(id: Int!) : Boolean!
     deleteProduct(projectId: Int!, productId: Int!) : Boolean!
 }

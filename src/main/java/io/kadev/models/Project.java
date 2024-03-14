@@ -29,14 +29,14 @@ public class Project {
 	private int quantiteTotal;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Produit> produits = new ArrayList<Produit>(Arrays.asList());
+	private List<Product> products = new ArrayList<Product>(Arrays.asList());
 
 	// Constructeur
 	public Project(String n, double cfc) {
 		this.nom = n;
 		this.chargesFixesCommunes = cfc;
 		this.chiffreAffaireTotal = 0;
-		produits.stream().forEach(p -> this.chiffreAffaireTotal = p.getChiffreAffaire());
+		products.stream().forEach(p -> this.chiffreAffaireTotal = p.getChiffreAffaire());
 	}
 
 }

@@ -31,11 +31,11 @@ public class LoggingAspect {
         String className = pjd.getTarget().getClass().getSimpleName();
         final StopWatch stopWatch= new StopWatch();
         Object[] args = pjd.getArgs();
-        log.info(className + "::" + methodName + ": Start Execution " + Arrays.toString(args));
+        log.info("{} :: {} : Start Execution {}", className, methodName, Arrays.toString(args));
         stopWatch.start();
         Object object = pjd.proceed();
         stopWatch.stop();
-        log.info(className + "::" + methodName + " : Execution finished " + stopWatch.getTotalTimeMillis() + "ms");
+        log.info("{} :: {} : Execution finished {} ms" , className, methodName, stopWatch.getTotalTimeMillis());
         return object;
     }
 
@@ -43,7 +43,7 @@ public class LoggingAspect {
     public void generalServiceLoggerAdvise(JoinPoint jp, Throwable e){
         String methodName = jp.getSignature().getName();
         String className = jp.getTarget().getClass().getSimpleName();
-        log.error(className + "::" + methodName + ": Execution failed because "+ e.getMessage());
+        log.error("{} :: {} : Execution failed because {}", className, methodName, e.getMessage());
     }
 
 }

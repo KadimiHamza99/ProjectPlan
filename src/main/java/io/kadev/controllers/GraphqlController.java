@@ -1,9 +1,10 @@
 package io.kadev.controllers;
 
-import io.kadev.dto.ProduitRequestDto;
-import io.kadev.dto.ProduitResponseDto;
+import io.kadev.dto.ProductRequestDto;
+import io.kadev.dto.ProductResponseDto;
 import io.kadev.dto.ProjectRequestDto;
 import io.kadev.dto.ProjectResponseDto;
+import io.kadev.exceptions.BusinessLogicException;
 import io.kadev.models.graphql.CreateProjectWithProductsInput;
 import io.kadev.models.graphql.ProductInput;
 import io.kadev.services.BusinessLogicInterface;
@@ -23,19 +24,21 @@ public class GraphqlController {
     private BusinessLogicInterface service;
 
     @MutationMapping
-    public boolean createProjectWithProducts(@Argument CreateProjectWithProductsInput input) {
+    public ProjectResponseDto createProjectWithProducts(@Argument CreateProjectWithProductsInput input) {
         try{
             ProjectRequestDto projectRequestDto = new ProjectRequestDto(input.getNom(), input.getChargeFixesCommunes());
             ProjectResponseDto projectOutput = service.createNewProject(projectRequestDto);
-            for (ProductInput p : input.getProducts()) {
-                ProduitRequestDto produit = new ProduitRequestDto(p.getName(), p.getQuantite(), p.getPrixVenteUnitaire(), p.getCoutVariableUnitaire(), p.getCoutsFixesDirects(), projectOutput.getId(), p.getObjectifGeneral(), p.getObjectifParJour());
-                service.createNewProduit(produit);
+            if(input.getProducts() != null){
+                for (ProductInput p : input.getProducts()) {
+                    ProductRequestDto produit = new ProductRequestDto(p.getName(), p.getQuantite(), p.getPrixVenteUnitaire(), p.getCoutVariableUnitaire(), p.getCoutsFixesDirects(), projectOutput.getId(), p.getObjectifGeneral(), p.getObjectifParJour());
+                    service.createNewProduit(produit);
+                }
             }
             service.calculMetrics(projectOutput.getId());
-            return true;
+            return service.getProject(projectOutput.getId());
         } catch (Exception e) {
             log.error(e.getMessage());
-            return false;
+            throw new BusinessLogicException("Could not create new project !");
         }
     }
 
@@ -45,7 +48,7 @@ public class GraphqlController {
     }
 
     @QueryMapping
-    public Collection<ProduitResponseDto> getProductsForProject(@Argument Long id){
+    public Collection<ProductResponseDto> getProductsForProject(@Argument Long id){
         return service.getAllProjectProduits(id);
     }
 

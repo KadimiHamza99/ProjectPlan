@@ -3,99 +3,41 @@ package io.kadev.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.kadev.dto.ProductResponseDto;
+import io.kadev.models.Product;
+import org.mapstruct.Context;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import io.kadev.dto.ProduitRequestDto;
-import io.kadev.dto.ProduitResponseDto;
+import io.kadev.dto.ProductRequestDto;
 import io.kadev.dto.ProjectRequestDto;
 import io.kadev.dto.ProjectResponseDto;
-import io.kadev.models.Produit;
 import io.kadev.models.Project;
 import io.kadev.repositories.ProjectRepository;
 
-public class ValueMapper {
-	/*
-	 * Cette methode permet de convertir un objet projectRequestDto en un objet
-	 * Project
-	 */
-	public static Project toProjectEntity(ProjectRequestDto projectRequestDto) {
-		Project project = new Project();
-		project.setNom(projectRequestDto.getNom());
-		project.setChargesFixesCommunes(projectRequestDto.getChargeFixesCommunes());
-		return project;
-	}
+@Mapper(componentModel = "spring")
+public interface ValueMapper {
 
-	/*
-	 * Cette methode permet de convertir un objet Project en un objet
-	 * ProjectResponseDto
-	 */
-	public static ProjectResponseDto toProjectResponseDto(Project project) {
-		ProjectResponseDto projectResponseDto = new ProjectResponseDto();
-		projectResponseDto.setId(project.getId());
-		projectResponseDto.setNom(project.getNom());
-		projectResponseDto.setCoutsFixesCommunes(project.getChargesFixesCommunes());
-		projectResponseDto.setProduits(project.getProduits());
-		projectResponseDto.setResultatsExploitation(project.getResultatsExploitation());
-		projectResponseDto.setQuantiteTotal(project.getQuantiteTotal());
-		return projectResponseDto;
-	}
+	@Mapping(target = "chargesFixesCommunes", source = "chargeFixesCommunes")
+	Project toProjectEntity(ProjectRequestDto projectRequestDto);
 
-	/*
-	 * Cette methode permet de convertir un objet produitRequestDto en un objet
-	 * Produit
-	 */
-	@Autowired
-	static ProjectRepository projectRepository;
+	ProjectResponseDto toProjectResponseDto(Project project);
 
-	public static Produit toProduitEntity(ProduitRequestDto produitRequestDto,Project project) {
-		Produit produit = new Produit();
-		produit.setName(produitRequestDto.getName());
-		produit.setQuantite(produitRequestDto.getQuantite());
-		produit.setPrixVenteUnitaire(produitRequestDto.getPrixVenteUnitaire());
-		produit.setCoutVariableUnitaire(produitRequestDto.getCoutVariableUnitaire());
-		produit.setCoutsFixesDirects(produitRequestDto.getCoutsFixesDirects());
-		produit.setObjectifGeneral(produitRequestDto.getObjectifGeneral());
-		produit.setObjectifParJour(produitRequestDto.getObjectifParJour());
+	default Product toProduitEntity(ProductRequestDto productRequestDto,@Context Project project) {
+		Product product = new Product();
+		product.setName(productRequestDto.getName());
+		product.setQuantite(productRequestDto.getQuantite());
+		product.setPrixVenteUnitaire(productRequestDto.getPrixVenteUnitaire());
+		product.setCoutVariableUnitaire(productRequestDto.getCoutVariableUnitaire());
+		product.setCoutsFixesDirects(productRequestDto.getCoutsFixesDirects());
+		product.setObjectifGeneral(productRequestDto.getObjectifGeneral());
+		product.setObjectifParJour(productRequestDto.getObjectifParJour());
 		// Il faut developper une methode dans un service qui contient getProjectById
-		produit.setProject(project);
-		return produit;
+		product.setProject(project);
+		return product;
 	}
 
-	/*
-	 * Cette methode permet de convertir un objet Produit en un objet
-	 * ProduitResponseDto
-	 */
-	public static ProduitResponseDto toProduitResponseDto(Produit produit) {
-		ProduitResponseDto produitResponseDto = new ProduitResponseDto();
-		produitResponseDto.setChiffreAffaire(produit.getChiffreAffaire());
-		produitResponseDto.setCoutsFixesDirects(produit.getCoutsFixesDirects());
-		produitResponseDto.setCoutVariableUnitaire(produit.getCoutVariableUnitaire());
-		produitResponseDto.setId(produit.getId());
-		produitResponseDto.setMargeCoutsComplets(produit.getMargeCoutsComplets());
-		produitResponseDto.setMargeCoutsDirects(produit.getMargeCoutsDirects());
-		produitResponseDto.setMargeCoutsVariables(produit.getMargeCoutsVariables());
-		produitResponseDto.setName(produit.getName());
-		produitResponseDto.setNombreVentesNecessaires(produit.getNombreVentesNecessaires());
-		produitResponseDto.setPartChiffreAffaire(produit.getPartChiffreAffaire());
-		produitResponseDto.setPrixVenteUnitaire(produit.getPrixVenteUnitaire());
-		produitResponseDto.setProject(produit.getProject());
-		produitResponseDto.setQuantite(produit.getQuantite());
-		produitResponseDto.setRepartitionProrata(produit.getRepartitionCFCProrataCA());
-		produitResponseDto.setSeuilRentabilite(produit.getSeuilRentabilite());
-		produitResponseDto.setObjectifGeneral(produit.getObjectifGeneral());
-		produitResponseDto.setObjectifParJour(produit.getObjectifParJour());
-		produitResponseDto.setPrixVenteOptimal(produit.getPrixVenteOptimal());
-		produit.setPointMort(produit.getPointMort());
-		return produitResponseDto;
-	}
-
-	public static String jsonAsString(Object obj) {
-		try {
-			return new ObjectMapper().writeValueAsString(obj);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+	ProductResponseDto toProduitResponseDto(Product product);
 
 }

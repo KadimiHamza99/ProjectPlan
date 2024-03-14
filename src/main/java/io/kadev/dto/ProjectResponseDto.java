@@ -3,7 +3,7 @@ package io.kadev.dto;
 import java.util.Arrays;
 import java.util.List;
 
-import io.kadev.models.Produit;
+import io.kadev.models.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +15,5 @@ public class ProjectResponseDto {
 	private double coutsFixesCommunes;
 	private double resultatsExploitation;
 	private int quantiteTotal;
-	private List<Produit> produits = Arrays.asList();
+	private List<Product> products = Arrays.asList();
 }

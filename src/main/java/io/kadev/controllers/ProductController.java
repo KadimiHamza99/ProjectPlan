@@ -1,6 +1,7 @@
 package io.kadev.controllers;
 
 
+import io.kadev.dto.ProductResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.kadev.dto.ProduitRequestDto;
-import io.kadev.dto.ProduitResponseDto;
+import io.kadev.dto.ProductRequestDto;
 import io.kadev.services.BusinessLogicInterface;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,25 +31,25 @@ public class ProductController {
 	 * Getting a product by passing an id as @PathVariable
 	 * */
 	@GetMapping("/get/{id}")
-	public ResponseEntity<ProduitResponseDto> getProduct(@PathVariable int id){
-		ProduitResponseDto response = service.getProduit((long) id);
+	public ResponseEntity<ProductResponseDto> getProduct(@PathVariable int id){
+		ProductResponseDto response = service.getProduit((long) id);
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	/*
 	 * Create new product for a project
 	 * */
 	@PostMapping("/create")
-	public ResponseEntity<ProduitResponseDto> createNewProduct(@RequestBody @Valid ProduitRequestDto product){
-		ProduitResponseDto response = service.createNewProduit(product);
+	public ResponseEntity<ProductResponseDto> createNewProduct(@RequestBody @Valid ProductRequestDto product){
+		ProductResponseDto response = service.createNewProduit(product);
 		return new ResponseEntity<>(response,HttpStatus.CREATED);
 	}
 	/*
 	 * Update a product
 	 * */
 	@PutMapping("/update/{id}")
-	public ResponseEntity<ProduitResponseDto> updateProduct(@PathVariable int id,
-															@RequestBody @Valid ProduitRequestDto product){
-		ProduitResponseDto response = service.updateProduit(product, (long) id);
+	public ResponseEntity<ProductResponseDto> updateProduct(@PathVariable int id,
+															@RequestBody @Valid ProductRequestDto product){
+		ProductResponseDto response = service.updateProduit(product, (long) id);
 		return new ResponseEntity<>(response,HttpStatus.CREATED);
 	}
 	/*

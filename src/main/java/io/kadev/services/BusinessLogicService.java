@@ -3,24 +3,23 @@ package io.kadev.services;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 
+import io.kadev.dto.ProductResponseDto;
+import io.kadev.models.Product;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import io.kadev.dto.ProduitRequestDto;
-import io.kadev.dto.ProduitResponseDto;
+import io.kadev.dto.ProductRequestDto;
 import io.kadev.dto.ProjectRequestDto;
 import io.kadev.dto.ProjectResponseDto;
 import io.kadev.exceptions.BusinessLogicException;
-import io.kadev.exceptions.ProduitNotFoundException;
+import io.kadev.exceptions.ProductNotFoundException;
 import io.kadev.exceptions.ProjectNotFoundException;
-import io.kadev.models.Produit;
 import io.kadev.models.Project;
-import io.kadev.repositories.ProduitRepository;
+import io.kadev.repositories.ProductRepository;
 import io.kadev.repositories.ProjectRepository;
 import io.kadev.utils.ValueMapper;
 import lombok.AllArgsConstructor;
@@ -32,8 +31,9 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class BusinessLogicService implements BusinessLogicInterface {
 	
-	private ProduitRepository produitRepo;
+	private ProductRepository produitRepo;
 	private ProjectRepository projectRepo;
+	private ValueMapper mapper;
 	
 	
 	/*
@@ -42,9 +42,9 @@ public class BusinessLogicService implements BusinessLogicInterface {
 	public ProjectResponseDto createNewProject(ProjectRequestDto projectRequestDto) throws BusinessLogicException {
 		ProjectResponseDto projectResponseDto;
 		try {
-			Project project = ValueMapper.toProjectEntity(projectRequestDto);
+			Project project = mapper.toProjectEntity(projectRequestDto);
 			Project projectResult = projectRepo.save(project);
-			projectResponseDto = ValueMapper.toProjectResponseDto(projectResult);
+			projectResponseDto = mapper.toProjectResponseDto(projectResult);
 		}
 		catch(BusinessLogicException e) {
 			throw new BusinessLogicException("Exception occured while saving Project in the database");
@@ -54,21 +54,21 @@ public class BusinessLogicService implements BusinessLogicInterface {
 	/*
 	 * This method will create a new product for the project
 	 * */
-	public ProduitResponseDto createNewProduit(ProduitRequestDto produitRequestDto) throws BusinessLogicException {
-		ProduitResponseDto produitResponseDto;
+	public ProductResponseDto createNewProduit(ProductRequestDto productRequestDto) throws BusinessLogicException {
+		ProductResponseDto productResponseDto;
 		try {
-			Project project = projectRepo.findById(produitRequestDto.getProject_id()).get();
-			Produit produit = ValueMapper.toProduitEntity(produitRequestDto,project);
-			project.getProduits().add(produit);
-			project.setQuantiteTotal(project.getQuantiteTotal()+produit.getQuantite());
-			project.setChiffreAffaireTotal(project.getChiffreAffaireTotal()+produit.getQuantite()*produit.getPrixVenteUnitaire());
-			Produit produitResult = produitRepo.save(produit);
-			produitResponseDto = ValueMapper.toProduitResponseDto(produitResult);
+			Project project = projectRepo.findById(productRequestDto.getProject_id()).get();
+			Product product = mapper.toProduitEntity(productRequestDto,project);
+			project.getProducts().add(product);
+			project.setQuantiteTotal(project.getQuantiteTotal()+ product.getQuantite());
+			project.setChiffreAffaireTotal(project.getChiffreAffaireTotal()+ product.getQuantite()* product.getPrixVenteUnitaire());
+			Product productResult = produitRepo.save(product);
+			productResponseDto = mapper.toProduitResponseDto(productResult);
 		}
 		catch(BusinessLogicException e) {
-			throw new BusinessLogicException("Exception occured while saving Produit in the database");
+			throw new BusinessLogicException("Exception occured while saving Product in the database");
 		}
-		return produitResponseDto;
+		return productResponseDto;
 	}
 	/*
 	 * This method will do some operations and calcul some metrics to see is the product is rentable
@@ -79,7 +79,7 @@ public class BusinessLogicService implements BusinessLogicInterface {
 		try {
 
 			Project project = projectRepo.findById(projectId).orElseThrow(()->new ProjectNotFoundException("Exception occured while fetching the project from the DB !"));
-			project.getProduits().stream().forEach(produit->{
+			project.getProducts().stream().forEach(produit->{
 				int quantite = produit.getQuantite();
 				double prixVenteUnitaire = produit.getPrixVenteUnitaire();
 				double coutVariableUnitaire = produit.getCoutVariableUnitaire();
@@ -111,7 +111,7 @@ public class BusinessLogicService implements BusinessLogicInterface {
 			});
 			project.setResultatsExploitation(resultatExploitation.get());
 			Project projectResult = projectRepo.save(project);
-			projectResponseDto = ValueMapper.toProjectResponseDto(projectResult);
+			projectResponseDto = mapper.toProjectResponseDto(projectResult);
 		}
 		catch(BusinessLogicException e) {
 			throw new BusinessLogicException("Exception occured while updating Project object !");
@@ -129,7 +129,7 @@ public class BusinessLogicService implements BusinessLogicInterface {
 			projectToUpdate.setNom(projectRequestDto.getNom());
 			projectToUpdate.setChargesFixesCommunes(projectRequestDto.getChargeFixesCommunes());
 			projectRepo.save(projectToUpdate);
-			projectResponse = ValueMapper.toProjectResponseDto(projectToUpdate);
+			projectResponse = mapper.toProjectResponseDto(projectToUpdate);
 			return projectResponse;
 		}catch(Exception e) {
 			throw new BusinessLogicException("An Exception occured while updating the project with id : "+id);
@@ -139,18 +139,18 @@ public class BusinessLogicService implements BusinessLogicInterface {
 	 * Update Product
 	 * */
 	@Override
-	public ProduitResponseDto updateProduit(ProduitRequestDto produitRequestDto, Long id) throws BusinessLogicException {
-		ProduitResponseDto produitResponse;
+	public ProductResponseDto updateProduit(ProductRequestDto productRequestDto, Long id) throws BusinessLogicException {
+		ProductResponseDto produitResponse;
 		try {
 			log.info("BusinessLogicService:updateProduit Execution started");
-			Produit produitToUpdate = produitRepo.findById(id).orElseThrow(()->new ProduitNotFoundException("Produit Not found"));
-			produitToUpdate.setName(produitRequestDto.getName());
-			produitToUpdate.setCoutsFixesDirects(produitRequestDto.getCoutsFixesDirects());
-			produitToUpdate.setCoutVariableUnitaire(produitRequestDto.getCoutVariableUnitaire());
-			produitToUpdate.setPrixVenteUnitaire(produitRequestDto.getPrixVenteUnitaire());
-			produitToUpdate.setQuantite(produitRequestDto.getQuantite());
-			produitRepo.save(produitToUpdate);
-			produitResponse = ValueMapper.toProduitResponseDto(produitToUpdate);
+			Product productToUpdate = produitRepo.findById(id).orElseThrow(()->new ProductNotFoundException("Product Not found"));
+			productToUpdate.setName(productRequestDto.getName());
+			productToUpdate.setCoutsFixesDirects(productRequestDto.getCoutsFixesDirects());
+			productToUpdate.setCoutVariableUnitaire(productRequestDto.getCoutVariableUnitaire());
+			productToUpdate.setPrixVenteUnitaire(productRequestDto.getPrixVenteUnitaire());
+			productToUpdate.setQuantite(productRequestDto.getQuantite());
+			produitRepo.save(productToUpdate);
+			produitResponse = mapper.toProduitResponseDto(productToUpdate);
 			return produitResponse;
 		}catch(Exception e) {
 			throw new BusinessLogicException("An Exception occured while updating the produit with id : "+id);
@@ -174,10 +174,10 @@ public class BusinessLogicService implements BusinessLogicInterface {
 	@Override
 	public boolean deleteProduit(Long id) throws BusinessLogicException {
 		try {
-			Produit produit = produitRepo.findById(id).orElseThrow(()->new ProduitNotFoundException("Produit with id : "+id+"not found in the DB"));
-			produit.getProject().getProduits().remove(produit);
-			produit.setProject(null);	
-			produitRepo.delete(produit);
+			Product product = produitRepo.findById(id).orElseThrow(()->new ProductNotFoundException("Product with id : "+id+"not found in the DB"));
+			product.getProject().getProducts().remove(product);
+			product.setProject(null);
+			produitRepo.delete(product);
 			return true;
 		}catch(Exception e) {
 			throw new BusinessLogicException("Exception occured while deleting the produit with the id: "+id+" from DB");
@@ -186,10 +186,10 @@ public class BusinessLogicService implements BusinessLogicInterface {
 	@Override
 	public boolean deleteProduit(Long projectId, Long productId) throws BusinessLogicException {
 		try {
-			Produit produit = produitRepo.findByIdAndProjectId(projectId, productId).orElseThrow(()->new ProduitNotFoundException("Produit with id : "+productId+"not found in the DB"));
-			produit.getProject().getProduits().remove(produit);
-			produit.setProject(null);
-			produitRepo.delete(produit);
+			Product product = produitRepo.findByIdAndProjectId(projectId, productId).orElseThrow(()->new ProductNotFoundException("Product with id : "+productId+"not found in the DB"));
+			product.getProject().getProducts().remove(product);
+			product.setProject(null);
+			produitRepo.delete(product);
 			return true;
 		}catch(Exception e) {
 			throw new BusinessLogicException("Exception occured while deleting the produit with the id: "+productId+" from DB");
@@ -207,7 +207,7 @@ public class BusinessLogicService implements BusinessLogicInterface {
 				projectsResponses = Collections.emptyList(); 
 			}else {
 				projectsResponses = projects.stream()
-											.map(ValueMapper::toProjectResponseDto)
+											.map(mapper::toProjectResponseDto)
 											.collect(Collectors.toList());
 			}
 			return projectsResponses;
@@ -219,17 +219,17 @@ public class BusinessLogicService implements BusinessLogicInterface {
 	 * Fetch All the products for one project
 	 * */
 	@Override
-	public Collection<ProduitResponseDto> getAllProjectProduits(Long projectId) {
-		List<ProduitResponseDto> produitsResponses = null;
+	public Collection<ProductResponseDto> getAllProjectProduits(Long projectId) {
+		List<ProductResponseDto> produitsResponses = null;
 		Project project;
 		try {
 			project = projectRepo.findById(projectId).orElseThrow(()->new ProjectNotFoundException("Project not found"));
-			List<Produit> produits = project.getProduits();
-			if(produits.isEmpty()) {
+			List<Product> products = project.getProducts();
+			if(products.isEmpty()) {
 				produitsResponses = Collections.emptyList();
 			}else {
-				produitsResponses = produits.stream()
-											.map(ValueMapper::toProduitResponseDto)
+				produitsResponses = products.stream()
+											.map(mapper::toProduitResponseDto)
 											.collect(Collectors.toList());
 			}
 			return produitsResponses;
@@ -244,7 +244,7 @@ public class BusinessLogicService implements BusinessLogicInterface {
 	public ProjectResponseDto getProject(Long id) {
 		try {
 			Project project = projectRepo.findById(id).orElseThrow(()->new ProjectNotFoundException("An Exception has occured while fetching the project from the DB"));
-			ProjectResponseDto response = ValueMapper.toProjectResponseDto(project);
+			ProjectResponseDto response = mapper.toProjectResponseDto(project);
 			return response;
 		}catch(Exception e) {
 			throw new BusinessLogicException("An exception occured while getting the project from the DB");
@@ -254,10 +254,10 @@ public class BusinessLogicService implements BusinessLogicInterface {
 	 * get a product by id
 	 * */
 	@Override
-	public ProduitResponseDto getProduit(Long id) {
+	public ProductResponseDto getProduit(Long id) {
 		try {
-			Produit produit = produitRepo.findById(id).orElseThrow(()->new ProduitNotFoundException("An Exception has occured while fetching the project from the DB"));
-			ProduitResponseDto response = ValueMapper.toProduitResponseDto(produit);
+			Product product = produitRepo.findById(id).orElseThrow(()->new ProductNotFoundException("An Exception has occured while fetching the project from the DB"));
+			ProductResponseDto response = mapper.toProduitResponseDto(product);
 			return response;
 		}catch(Exception e) {
 			throw new BusinessLogicException("An exception occured while getting the produit from the DB");

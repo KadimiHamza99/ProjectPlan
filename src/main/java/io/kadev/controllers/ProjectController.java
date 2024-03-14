@@ -2,6 +2,7 @@ package io.kadev.controllers;
 
 import java.util.Collection;
 
+import io.kadev.dto.ProductResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.kadev.dto.ProduitResponseDto;
 import io.kadev.dto.ProjectRequestDto;
 import io.kadev.dto.ProjectResponseDto;
 import io.kadev.services.BusinessLogicInterface;
@@ -50,8 +50,8 @@ public class ProjectController {
 	 * fetch all project products
 	 * */
 	@GetMapping("/get-products/{id}")
-	public ResponseEntity<Collection<ProduitResponseDto>> getProjectProducts(@PathVariable int id){
-		Collection<ProduitResponseDto> response =  service.getAllProjectProduits((long) id);
+	public ResponseEntity<Collection<ProductResponseDto>> getProjectProducts(@PathVariable int id){
+		Collection<ProductResponseDto> response =  service.getAllProjectProduits((long) id);
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	/*

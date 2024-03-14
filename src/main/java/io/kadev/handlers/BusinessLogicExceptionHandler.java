@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import io.kadev.exceptions.BusinessLogicException;
-import io.kadev.exceptions.ProduitNotFoundException;
+import io.kadev.exceptions.ProductNotFoundException;
 import io.kadev.exceptions.ProjectNotFoundException;
 
 @RestControllerAdvice
@@ -32,8 +32,8 @@ public class BusinessLogicExceptionHandler {
 		return new ResponseEntity<>("Business Logic Exception",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(ProduitNotFoundException.class)
-    public ResponseEntity<?> handleProductNotFoundException(ProduitNotFoundException exception) {
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<?> handleProductNotFoundException(ProductNotFoundException exception) {
         
         return new ResponseEntity<>("Product Not Found",HttpStatus.INTERNAL_SERVER_ERROR);
     }

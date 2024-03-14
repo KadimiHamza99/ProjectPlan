@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder @EqualsAndHashCode
-public class ProduitRequestDto {
+public class ProductRequestDto {
 	@NotBlank(message = "Un produit doit avoir un nom!")
 	private String name;
 	@Min(value = 0, message = "La quantité doit etre sup à 0!")
