@@ -19,7 +19,7 @@ public class ProductRequestDto {
 	@Min(value = 0, message = "Le prix de vente unitaire doit etre sup à 0!")
 	private double prixVenteUnitaire;
 	@Min(value = 0, message = "Le cout variable unitaire doit etre sup à 0!")
-	private double CoutVariableUnitaire;
+	private double coutVariableUnitaire;
 	@Min(value = 0, message = "Les couts fixes directs doivent etre sup à 0!")
 	private double coutsFixesDirects;
 	@NotBlank(message = "Must contain a project ID!")

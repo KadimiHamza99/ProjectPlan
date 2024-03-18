@@ -15,10 +15,6 @@ public class ProjectPlanApplication implements CommandLineRunner{
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectPlanApplication.class, args);
 	}
-	
-	/*
-	 * Cette partie ce n'est que pour les tests ! 
-	 * */
 
 	@Autowired
 	private BusinessLogicInterface service;

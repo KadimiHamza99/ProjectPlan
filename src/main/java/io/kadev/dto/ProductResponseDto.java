@@ -12,7 +12,7 @@ public class ProductResponseDto {
 	private String name;
 	private int quantite;
 	private double prixVenteUnitaire;
-	private double CoutVariableUnitaire;
+	private double coutVariableUnitaire;
 	private int nombreVenteEstimeParSemaine;
 	private double coutsFixesDirects;
 	private boolean rentable;
