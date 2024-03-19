@@ -21,7 +21,7 @@ public class ProjectPlanApplication implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		ProjectRequestDto p1 = new ProjectRequestDto("Chocolatier",5000);
+		/*ProjectRequestDto p1 = new ProjectRequestDto("Chocolatier",5000);
 		service.createNewProject(p1);
 		
 		ProductRequestDto prod1 = new ProductRequestDto("T1",25000,12,3,120000,1L,20000,1);
@@ -31,7 +31,7 @@ public class ProjectPlanApplication implements CommandLineRunner{
 		service.createNewProduit(prod2);
 		service.createNewProduit(prod3);
 
-		service.calculMetrics(1L);
+		service.calculMetrics(1L);*/
 	}
 
 }

@@ -77,7 +77,6 @@ public class BusinessLogicService implements BusinessLogicInterface {
 		ProjectResponseDto projectResponseDto;
 		AtomicReference<Double> resultatExploitation = new AtomicReference<>((double) 0);
 		try {
-
 			Project project = projectRepo.findById(projectId).orElseThrow(()->new ProjectNotFoundException("Exception occured while fetching the project from the DB !"));
 			project.getProducts().stream().forEach(produit->{
 				int quantite = produit.getQuantite();
@@ -116,6 +115,7 @@ public class BusinessLogicService implements BusinessLogicInterface {
 		catch(BusinessLogicException e) {
 			throw new BusinessLogicException("Exception occured while updating Project object !");
 		}
+		log.info(projectResponseDto.toString());
 		return projectResponseDto;
 	}
 	/*
