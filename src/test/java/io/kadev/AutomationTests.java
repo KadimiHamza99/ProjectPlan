@@ -49,21 +49,20 @@ public class AutomationTests {
         }
     }
 
-    @When("quand on va executer notre methode de comptabilite analytique")
-    public void quandOnVaExecuterNotreMethodeDeComptabiliteAnalytique() {
-        service.calculMetrics(1L);
+    @When("quand on va executer notre methode de comptabilite analytique pour le projet {}")
+    public void quandOnVaExecuterNotreMethodeDeComptabiliteAnalytique(long projectId) {
+        service.calculMetrics(projectId);
     }
 
-    @Then("notre projet doit avoir un resultat d'exploitation egale a {}")
-    public void notreProjetDoitAvoirUnResultatDExploitationEgaleA(String resultatExploitation ) {
-        ProjectResponseDto project = service.getProject(1L);
+    @Then("notre projet {} doit avoir un resultat d'exploitation egale a {}")
+    public void notreProjetDoitAvoirUnResultatDExploitationEgaleA(long projectId, String resultatExploitation ) {
+        ProjectResponseDto project = service.getProject(projectId);
         assertTrue(Math.abs(project.getResultatsExploitation()-Integer.valueOf(resultatExploitation))<1);
     }
 
-    @And("l analyse sur nos produits :")
-    public void lAnalyseSurNosProduits(List<ResultatsAnalyseProduit> resultats) {
-        ProjectResponseDto project = service.getProject(1L);
-        DecimalFormat df = new DecimalFormat("#.##");
+    @And("l analyse sur les produits pour le projet {} :")
+    public void lAnalyseSurNosProduits(long projectId, List<ResultatsAnalyseProduit> resultats) {
+        ProjectResponseDto project = service.getProject(projectId);
         for(ResultatsAnalyseProduit r : resultats){
             Product product = project.getProducts().stream()
                     .filter(p -> p.getName().equals(r.getName()))
