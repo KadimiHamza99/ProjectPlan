@@ -105,7 +105,7 @@ public class BusinessLogicService implements BusinessLogicInterface {
 				produit.setMargeCoutsVariables(tauxMargeCoutsVariables);
 				produit.setPointMort(nombreVentesNecessaires/ produit.getObjectifParJour());
 				int objectifParAnnee = produit.getObjectifParJour()*200;
-				double prixVenteOptimal = ((repartitionProrata+coutFixesDirect)/ objectifParAnnee) + produit.getPrixVenteUnitaire();
+				double prixVenteOptimal = ((repartitionProrata+coutFixesDirect)/ objectifParAnnee) + produit.getCoutVariableUnitaire();
 				produit.setPrixVenteOptimal(prixVenteOptimal);
 			});
 			project.setResultatsExploitation(resultatExploitation.get());

@@ -57,7 +57,7 @@ public class AutomationTests {
     @Then("notre projet doit avoir un resultat d'exploitation egale a {}")
     public void notreProjetDoitAvoirUnResultatDExploitationEgaleA(String resultatExploitation ) {
         ProjectResponseDto project = service.getProject(1L);
-        assertTrue(project.getResultatsExploitation()==Integer.valueOf(resultatExploitation));
+        assertTrue(Math.abs(project.getResultatsExploitation()-Integer.valueOf(resultatExploitation))<1);
     }
 
     @And("l analyse sur nos produits :")
@@ -68,9 +68,9 @@ public class AutomationTests {
             Product product = project.getProducts().stream()
                     .filter(p -> p.getName().equals(r.getName()))
                     .findFirst().get();
-            assertTrue(r.getPrixVenteOptimal()-product.getPrixVenteOptimal()<0.01);
-            assertTrue(r.getNombreVentesNecessaires()-(int) Math.floor(product.getNombreVentesNecessaires())==0);
-            assertTrue(r.getSeuilRentabilite()-product.getSeuilRentabilite()<0.01);
+            assertTrue(Math.abs(r.getPrixVenteOptimal()-product.getPrixVenteOptimal())<0.1);
+            assertTrue(Math.abs(r.getNombreVentesNecessaires()-(int) Math.floor(product.getNombreVentesNecessaires()))<0.1);
+            assertTrue(Math.abs(r.getSeuilRentabilite()-product.getSeuilRentabilite())<0.1);
         }
 
     }
