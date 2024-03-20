@@ -71,7 +71,6 @@ public class AutomationTests {
             assertTrue(Math.abs(r.getNombreVentesNecessaires()-(int) Math.floor(product.getNombreVentesNecessaires()))<0.1);
             assertTrue(Math.abs(r.getSeuilRentabilite()-product.getSeuilRentabilite())<0.1);
         }
-
     }
 
     @DataTableType
