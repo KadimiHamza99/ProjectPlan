@@ -12,8 +12,9 @@ import lombok.NoArgsConstructor;
 public class ProjectResponseDto {
 	private Long id;
 	private String nom;
-	private double coutsFixesCommunes;
+	private double chargesFixesCommunes;
 	private double resultatsExploitation;
 	private int quantiteTotal;
+	private double chiffreAffaireTotal;
 	private List<Product> products = Arrays.asList();
 }

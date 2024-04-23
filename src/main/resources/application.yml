@@ -6,6 +6,21 @@ spring:
     username: root
     password: 1949
 
+#  spring:
+#    h2.console.enabled: true
+#    h2.console.path: /h2-console
+#    datasource.url: jdbc:h2:mem:project_plan
+#    datasource.username: sa
+#    datasource.password :
+#    datasource.driver-class-name: org.h2.Driver
+#    datasource.type: com.zaxxer.hikari.HikariDataSource
+#    datasource.hikari.maximum-pool-size: 5
+#    datasource.hikari.minimum-idle: 1
+#    jpa.defer-datasource-initialization: true
+#    jpa.database-platform: org.hibernate.dialect.H2Dialect
+#    graphql.graphiql.enabled: true
+
+
 # JPA Configuration
   jpa:
     hibernate:

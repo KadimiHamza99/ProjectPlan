@@ -21,15 +21,15 @@ public class ProjectPlanApplication implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		/*ProjectRequestDto p1 = new ProjectRequestDto("Chocolatier",5000);
+		/*ProjectRequestDto p1 = new ProjectRequestDto("TEST",4000);
 		service.createNewProject(p1);
 		
-		ProductRequestDto prod1 = new ProductRequestDto("T1",25000,12,3,120000,1L,20000,1);
-		ProductRequestDto prod2 = new ProductRequestDto("T2",42000,9,2,160000,1L,40000,1);
-		ProductRequestDto prod3 = new ProductRequestDto("T3",12000,16,6,55000,1L,10000,70);
+		ProductRequestDto prod1 = new ProductRequestDto
+				("T1",500,2.5,1,600,1L,500,50);
+		ProductRequestDto prod2 = new ProductRequestDto
+				("T2",1000,1,0.5,1000,1L,1000,100);
 		service.createNewProduit(prod1);
 		service.createNewProduit(prod2);
-		service.createNewProduit(prod3);
 
 		service.calculMetrics(1L);*/
 	}
