@@ -7,12 +7,19 @@ import { CoreModule } from './core/core.module';
 import { FeaturesModule } from './features/features.module';
 import { LandingPageModule } from './landing-page/landing-page.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { ApolloModule, Apollo } from 'apollo-angular';
 
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -20,7 +27,15 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     CoreModule,
     FeaturesModule,
     LandingPageModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    ApolloModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,60 @@
+/* Style du tableau */
+.table-container {
+    margin: 20px;
+  }
+  
+  .mat-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+  }
+  
+  .mat-header-cell, .mat-cell {
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .mat-header-cell {
+    font-weight: bold;
+    border-bottom: 2px solid #ccc;
+  }
+  
+  .mat-cell {
+    border-bottom: 1px solid #eee;
+  }
+  
+  /* Style pour les lignes impaires */
+  .mat-row:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Style pour les lignes survolées */
+  .mat-row:hover {
+    background-color: #f0f0f0;
+  }
+  
+/* Style pour le container du bouton */
+.button-container {
+    margin-bottom: 20px;
+    text-align: right; /* Alignement du bouton à droite */
+  }
+  
+  /* Style pour le bouton Ajouter */
+  .add-button {
+    background-color: #4CAF50; /* Couleur verte */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  
+  .add-button:hover {
+    background-color: #419245; /* Légère variation de couleur au survol */
+  }
+  

@@ -1,0 +1,41 @@
+.example-card {
+    max-width: 400px;
+  }
+
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Répartit les cartes sur la largeur disponible */
+    gap: 20px; /* Espacement entre les cartes */
+    padding: 0 20px; /* Espacement à gauche et à droite */
+  }
+  
+  .mat-card {
+    background-color: #f0f0f0; /* Couleur de fond grise */
+    transition: background-color 0.3s; /* Transition fluide pour l'effet de focus */
+    position: relative; /* Permet d'absolument positionner les boutons à l'intérieur de la carte */
+    border-radius: 10px; /* Rend les coins de la carte moins carrés */
+  }
+  
+  .mat-card:hover {
+    background-color: #d0d0d0e7; /* Changement de couleur de fond au survol */
+  }
+  
+  /* Styling pour les boutons à l'intérieur des cartes */
+  .mat-card mat-card-actions {
+    position: absolute;
+    bottom: 10px; /* Ajustement de la position verticale */
+    right: 10px; /* Alignement à droite */
+  }
+  
+  .mat-card mat-card-actions button.mat-button {
+    background-color: #ff6600c9; /* Couleur de fond orange pour les boutons */
+    color: #fff; /* Couleur de texte blanche */
+    transition: background-color 0.3s; /* Transition fluide pour l'effet de focus */
+    margin-right: 10px; /* Espacement entre les boutons */
+    margin-bottom: 10px;
+  }
+  
+  .mat-card mat-card-content {
+    padding: 10px; /* Espacement entre le texte et les actions */
+  }
+  

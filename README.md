@@ -32,8 +32,8 @@ Ce projet personnel vise à fournir une plateforme d'analyse de performance des 
 1. Clonez le dépôt du projet.
 2. Configurez votre base de données MySQL si nécessaire sur application.yml (il faut créer une base de données avec le nom 'project_plan')
 3. Exécutez la commande 'mvn clean install' pour télécharger les dépendances nécessaires.
-4. Exécutez le frontend Angular (existe dans le répertoire angular-app).
-5. Vous pouvez lancer l'exécution de l'application à l'aide d'un éditeur de code (IntelliJ ou Eclipse) ou bien en ligne de commande en tapant mvn springboot:run .
+4. Exécutez le frontend Angular (existe dans le répertoire angular-app/client via la commande ng serve).
+5. Vous pouvez lancer l'exécution de l'application à l'aide d'un éditeur de code (IntelliJ ou Eclipse) ou bien en ligne de commande en tapant mvn spring-boot:run .
 
 ## Quelques exemples de requêtes GraphQL
 ```

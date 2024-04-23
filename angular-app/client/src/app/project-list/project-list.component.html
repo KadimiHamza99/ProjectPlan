@@ -1,0 +1,41 @@
+<div class="button-container">
+    <button mat-raised-button color="primary" class="add-button" (click)="ouvrirModal()">Ajouter un nouveau projet</button>
+  </div>
+<div class="table-container">
+    <table mat-table [dataSource]="projects">
+        <!-- Nom du projet -->
+        <ng-container matColumnDef="nom">
+        <th mat-header-cell *matHeaderCellDef>Nom du Projet</th>
+        <td mat-cell *matCellDef="let project">{{project.nom}}</td>
+        </ng-container>
+    
+        <!-- Charges Fixes Communes -->
+        <ng-container matColumnDef="chargesFixesCommunes">
+        <th mat-header-cell *matHeaderCellDef>Charges Fixes Communes</th>
+        <td mat-cell *matCellDef="let project">{{project.coutsFixesCommunes }}</td>
+        </ng-container>
+    
+        <!-- Chiffre d'Affaire Total -->
+        <ng-container matColumnDef="chiffreAffaireTotal">
+        <th mat-header-cell *matHeaderCellDef>Chiffre d'Affaire Total</th>
+        <td mat-cell *matCellDef="let project">{{project.chiffreAffaireTotal }}</td>
+        </ng-container>
+    
+        <!-- Résultats d'Exploitation -->
+        <ng-container matColumnDef="resultatsExploitation">
+        <th mat-header-cell *matHeaderCellDef>Résultats d'Exploitation</th>
+        <td mat-cell *matCellDef="let project">{{project.resultatsExploitation }}</td>
+        </ng-container>
+    
+        <!-- Quantité Total -->
+        <ng-container matColumnDef="quantiteTotal">
+        <th mat-header-cell *matHeaderCellDef>Quantité Total</th>
+        <td mat-cell *matCellDef="let project">{{project.quantiteTotal}}</td>
+        </ng-container>
+    
+        <!-- Définition des colonnes -->
+        <tr mat-header-row *matHeaderRowDef="['nom', 'chargesFixesCommunes', 'chiffreAffaireTotal', 'resultatsExploitation', 'quantiteTotal']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['nom', 'chargesFixesCommunes', 'chiffreAffaireTotal', 'resultatsExploitation', 'quantiteTotal'];"></tr>
+    </table>
+</div>
+ 
