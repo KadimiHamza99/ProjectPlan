@@ -1,0 +1,81 @@
+.modal-container {
+    width: 400px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333333;
+  }
+  
+  .mat-form-field {
+    width: 100%;
+    margin-bottom: 5px; /* Réduire l'espace entre les champs */
+  }
+  
+  .mat-button {
+    margin-left: 8px;
+    border-radius: 10px;
+  }
+  
+  .modal-buttons {
+    margin-top: 24px;
+    text-align: right;
+  }
+  
+  /* Style pour le container du bouton */
+.button-container {
+    margin-bottom: 20px;
+    text-align: right; /* Alignement du bouton à droite */
+  }
+
+/* Style pour le bouton Ajouter */
+.cancel-button {
+    background-color: #e53935; /* Couleur verte */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-right: 10px;
+  }
+  
+  .cancel-button:hover {
+    background-color: #e53935; /* Légère variation de couleur au survol */
+  }
+  
+  /* Style pour le bouton Ajouter */
+  .submit-button {
+    background-color: #4CAF50; /* Couleur verte */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-right: 10px;
+  }
+  
+  .submit-button:hover {
+    background-color: #419245; /* Légère variation de couleur au survol */
+  }
+  
+  .divider {
+    height: 2px;
+    background-color: #eee;
+    margin: 20px 0;
+  }
+  

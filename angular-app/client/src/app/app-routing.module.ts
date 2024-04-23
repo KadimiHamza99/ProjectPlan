@@ -1,11 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './landing-page/components/home/home.component';
+import {ProductCardComponent} from './product-card/product-card.component';
+import {ProjectListComponent} from './project-list/project-list.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
 const routes: Routes = [
-  {path: 'projects', loadChildren: () =>import('./features/features.module').then(m => m.FeaturesModule)},
   {path:'',component:HomeComponent},
-  {path: '**', component: NotFoundComponent}
+  {path: 'projects', component:ProjectListComponent},
+  { path: 'product/:id', component: ProductDetailsComponent },
+  {path:'product',component:ProductCardComponent},
+  {path: '**', component: NotFoundComponent},
+  
 ];
 
 @NgModule({

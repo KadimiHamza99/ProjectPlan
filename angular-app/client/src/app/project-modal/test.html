@@ -1,0 +1,13 @@
+<h2 class="modal-title">Ajouter un nouveau projet</h2>
+<form (ngSubmit)="ajouterProjet()" #projectForm="ngForm">
+  <mat-form-field>
+    <input matInput placeholder="Nom du projet" name="nom" ngModel required>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="number" placeholder="Charges fixes communes" name="chargesFixesCommunes" ngModel required>
+  </mat-form-field>
+  <div class="modal-buttons">
+    <button mat-button class="cancel-button" (click)="fermerModal()">Annuler</button>
+    <button mat-button class="submit-button" type="submit">Terminer</button>
+  </div>
+</form>

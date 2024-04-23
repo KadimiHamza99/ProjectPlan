@@ -1,0 +1,43 @@
+<h2 class="modal-title">Ajouter un nouveau projet</h2>
+<form [formGroup]="projectForm" (ngSubmit)="ajouterProjet()">
+  <mat-form-field>
+    <input matInput placeholder="Nom du projet" formControlName="nom" required>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="number" placeholder="Charges fixes communes" formControlName="chargesFixesCommunes" required>
+  </mat-form-field>
+
+  <div formArrayName="produits" *ngFor="let produit of produits.controls; let i = index">
+    <div [formGroupName]="i">
+        <div class="divider"></div>
+      <mat-form-field>
+        <input matInput placeholder="Nom du produit" formControlName="name" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Quantite" formControlName="quantite" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Prix de vente unitaire" formControlName="prixVenteUnitaire" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Cout variable unitaire" formControlName="coutVariableUnitaire" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Couts fixes directs" formControlName="coutsFixesDirects" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Objectif general" formControlName="objectifGeneral" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Objectif par jour" formControlName="objectifParJour" required>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <button mat-button (click)="ajouterProduit()">Ajouter produit</button>
+
+  <div class="modal-buttons">
+    <button mat-button class="cancel-button" (click)="fermerModal()">Annuler</button>
+    <button mat-button class="submit-button" type="submit">Terminer</button>
+  </div>
+</form>
