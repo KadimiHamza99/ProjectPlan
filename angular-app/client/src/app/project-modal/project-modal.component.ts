@@ -43,11 +43,41 @@ export class ProjetModalComponent {
     });
   }
 
+  /*get produits(): FormArray {
+    return this.projectForm.get('produits') as FormArray;
+  }*/
+
+  createProductForm(): FormGroup {
+    return this.fb.group({
+      name: ['', Validators.required],
+      quantite: [0, Validators.required],
+      prixVenteUnitaire: [0, Validators.required],
+      coutVariableUnitaire: [0, Validators.required],
+      coutsFixesDirects: [0, Validators.required],
+      objectifGeneral: [0, Validators.required],
+      objectifParJour: [0, Validators.required]
+    });
+  }
+
   get produits(): FormArray {
     return this.projectForm.get('produits') as FormArray;
   }
 
   ajouterProduit(): void {
+    this.produits.push(this.createProductForm());
+  }
+
+  ajouterProjet(): void {
+    if (this.projectForm.valid) {
+      const nouveauProjet: Project = this.projectForm.value;
+      this.dialogRef.close(nouveauProjet);
+    }
+  }
+
+  fermerModal(): void {
+    this.dialogRef.close();
+  }
+  /*ajouterProduit(): void {
     const produitForm = this.fb.group({
       name: ['', Validators.required],
       quantite: [0, Validators.required],
@@ -70,5 +100,5 @@ export class ProjetModalComponent {
 
   fermerModal(): void {
     this.dialogRef.close();
-  }
+  }*/
 }
