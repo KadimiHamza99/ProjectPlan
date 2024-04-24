@@ -4,7 +4,10 @@ import { MatTableModule} from '@angular/material/table';
 import { ProjetModalComponent } from '../project-modal/project-modal.component';
 import { GraphQLService } from '../graphql/graphqlService';
 
+import { ActivatedRoute, Router} from '@angular/router';
+
 export interface Project {
+  id: number;
   nom: string;
   chargesFixesCommunes: number;
   chiffreAffaireTotal: number;
@@ -22,20 +25,7 @@ export interface Project {
 })
 export class ProjectListComponent implements OnInit{
   projects: any[] = [];
-  
-  ajouterProjet() {
-    // Ajoutez ici la logique pour ajouter un nouveau projet à la liste
-    const nouveauProjet: Project = {
-      nom: 'Nouveau Projet',
-      chargesFixesCommunes: 0,
-      chiffreAffaireTotal: 0,
-      resultatsExploitation: 0,
-      quantiteTotal: 0
-    };
-    this.projects.push(nouveauProjet);
-    this.projects = [...this.projects];
-  }
-  constructor(private dialog: MatDialog,private graphQLService: GraphQLService) {}
+  constructor(private dialog: MatDialog,private route: ActivatedRoute,private graphQLService: GraphQLService, private router: Router) {}
 
   ngOnInit(): void {
     this.graphQLService.getProjects().subscribe((result : any ) => {
@@ -63,5 +53,8 @@ export class ProjectListComponent implements OnInit{
         });
       }
     });
+  }
+  redirectToProjectDetails(project: Project): void {
+    this.router.navigate(['/project', project.id]);
   }
 }

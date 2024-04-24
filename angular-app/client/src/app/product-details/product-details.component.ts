@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 
@@ -42,14 +42,6 @@ export class ProductDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private graphQLService: GraphQLService) { }
 
   ngOnInit(): void {
-    //const navigation = this.route?.snapshot?.data?.['state'];
-    //this.product = navigation?.product;
-    
-    /*const id = this.route.snapshot.paramMap.get('id');
-    if (id !== null) {
-      const productId = parseInt(id, 10);
-      
-    }*/
     this.productId = this.route.snapshot.paramMap.get('id') || '';
     if (this.productId !== null) {
       this.id = parseInt(this.productId, 10);

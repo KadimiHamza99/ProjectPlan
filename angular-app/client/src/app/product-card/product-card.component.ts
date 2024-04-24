@@ -57,6 +57,6 @@ export class ProductCardComponent implements OnInit {
   }
   
   redirectToProductDetails(product: Product): void {
-  this.router.navigate(['/product', product.id]/*, { state: { product } }*/);
+  this.router.navigate(['/product', product.id]);
   }
 }
