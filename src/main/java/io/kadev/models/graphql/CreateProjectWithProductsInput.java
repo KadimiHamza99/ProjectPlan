@@ -12,6 +12,6 @@ import java.util.Collection;
 @AllArgsConstructor
 public class CreateProjectWithProductsInput {
     private String nom;
-    private float chargeFixesCommunes;
+    private float chargesFixesCommunes;
     private ArrayList<ProductInput> products;
 }

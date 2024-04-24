@@ -3,7 +3,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { GraphQLService } from '../graphql/graphqlService';
 
@@ -41,7 +41,7 @@ export class ProductCardComponent implements OnInit {
 
   products : Product[] = [];
   projectId!: string;
-  constructor(private route: ActivatedRoute,private graphQLService: GraphQLService) { }
+  constructor(private route: ActivatedRoute,private graphQLService: GraphQLService, private router: Router) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -51,10 +51,12 @@ export class ProductCardComponent implements OnInit {
         const data = result.data;
         if (data) {
           this.products = data.getProductsForProject;
-          console.log('heey')
-          console.log(this.products)
         }
       });
     }
+  }
+  
+  redirectToProductDetails(product: Product): void {
+  this.router.navigate(['/product', product.id]/*, { state: { product } }*/);
   }
 }

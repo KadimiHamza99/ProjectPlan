@@ -6,7 +6,7 @@ import { GraphQLService } from '../graphql/graphqlService';
 
 export interface Project {
   nom: string;
-  coutsFixesCommunes: number;
+  chargesFixesCommunes: number;
   chiffreAffaireTotal: number;
   resultatsExploitation: number;
   quantiteTotal: number;
@@ -27,7 +27,7 @@ export class ProjectListComponent implements OnInit{
     // Ajoutez ici la logique pour ajouter un nouveau projet à la liste
     const nouveauProjet: Project = {
       nom: 'Nouveau Projet',
-      coutsFixesCommunes: 0,
+      chargesFixesCommunes: 0,
       chiffreAffaireTotal: 0,
       resultatsExploitation: 0,
       quantiteTotal: 0

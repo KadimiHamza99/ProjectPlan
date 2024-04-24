@@ -1,26 +1,32 @@
 <mat-card class="product-card">
-    <mat-card-header>
-      <mat-card-title>Details du Produit</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="product-info">
-      <ul>
-        <li><strong>ID:</strong> test</li>
-        <li><strong>Nom:</strong> test</li>
-        <li><strong>Quantité:</strong> test</li>
-        <li><strong>Chiffre d'affaire:</strong> test</li>
-        <li><strong>Marge coûts variables:</strong> test</li>
-        <li><strong>Marge coûts directs:</strong> test</li>
-        <li><strong>Part chiffre d'affaire:</strong> test</li>
-        <li><strong>Repartition prorata:</strong> test</li>
-        <li><strong>Marge coûts complets:</strong> test</li>
-        <li><strong>Seuil de rentabilité:</strong> test</li>
-        <li><strong>Nombre de ventes nécessaires:</strong> test</li>
-        <li><strong>Point mort:</strong> test</li>
-        <!-- Ajoutez d'autres propriétés ici -->
-      </ul>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary">Modifier</button>
-    </mat-card-actions>
-  </mat-card>
-  
+  <mat-card-header>
+    <mat-card-title>Details du Produit</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="product-info">
+    <ul>
+      <li><strong>ID:</strong> {{ product.id }}</li>
+      <li><strong>Nom:</strong> {{ product.name }}</li>
+      <li><strong>Quantité:</strong> {{ product.quantite }}</li>
+      <li><strong>Prix de vente unitaire:</strong> {{ product.prixVenteUnitaire }} €</li>
+      <li><strong>Coût variable unitaire:</strong> {{ product.coutVariableUnitaire }} €</li>
+      <li><strong>Nombre vente estimée par semaine:</strong> {{ product.nombreVenteEstimeParSemaine }}</li>
+      <li><strong>Coûts fixes directs:</strong> {{ product.coutsFixesDirects }} €</li>
+      <li><strong>Rentable:</strong> {{ product.rentable ? 'Oui' : 'Non' }}</li>
+      <li><strong>Chiffre d'affaire:</strong> {{ product.chiffreAffaire }} €</li>
+      <li><strong>Marge coûts variables:</strong> {{ product.margeCoutsVariables }} €</li>
+      <li><strong>Marge coûts directs:</strong> {{ product.margeCoutsDirects }} €</li>
+      <li><strong>Part chiffre d'affaire:</strong> {{ product.partChiffreAffaire }}</li>
+      <li><strong>Repartition prorata:</strong> {{ product.repartitionProrata }}</li>
+      <li><strong>Marge coûts complets:</strong> {{ product.margeCoutsComplets }}</li>
+      <li><strong>Seuil de rentabilité:</strong> {{ product.seuilRentabilite }}</li>
+      <li><strong>Nombre de ventes nécessaires:</strong> {{ product.nombreVentesNecessaires }}</li>
+      <li><strong>Point mort:</strong> {{ product.pointMort }}</li>
+      <li><strong>Objectif général:</strong> {{ product.objectifGeneral }}</li>
+      <li><strong>Objectif par jour:</strong> {{ product.objectifParJour }}</li>
+      <li><strong>Prix vente optimal:</strong> {{ product.prixVenteOptimal }}</li>
+    </ul>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary">Modifier</button>
+  </mat-card-actions>
+</mat-card>

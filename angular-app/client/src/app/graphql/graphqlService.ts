@@ -2,13 +2,17 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { InMemoryCache } from '@apollo/client/core';
-import { Product, Project } from '../project-modal/project-modal.component';
+import {  Product,Project } from '../project-modal/project-modal.component';
+import {ProductRes} from '../product-details/product-details.component'
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GraphQLService {
-  constructor(private apollo: Apollo) {
+  private apiUrl = 'http://localhost:8000/api/product/get/';
+  constructor(private apollo: Apollo, private http: HttpClient) {
     this.apollo.create({
         uri: 'http://localhost:8000/graphql',
         cache: new InMemoryCache()
@@ -22,7 +26,7 @@ export class GraphQLService {
           getProjects {
             id
             nom
-            coutsFixesCommunes
+            chargesFixesCommunes
             resultatsExploitation
             quantiteTotal
           }
@@ -40,7 +44,7 @@ export class GraphQLService {
           createProjectWithProducts(input: $input) {
             id
             nom
-            coutsFixesCommunes
+            chargesFixesCommunes
             resultatsExploitation
             quantiteTotal
           }
@@ -49,7 +53,7 @@ export class GraphQLService {
       variables: {
         input: {
           nom: project.nom,
-          chargeFixesCommunes: project.chargesFixesCommunes,
+          chargesFixesCommunes: project.chargesFixesCommunes,
           products: project.produits.map((product: Product) => ({
             name: product.name,
             quantite: product.quantite,
@@ -96,6 +100,11 @@ export class GraphQLService {
         id: projectId
       }
     });
+  }
+
+  getProductById(productId: number): Observable<ProductRes> {
+    const url = `${this.apiUrl}${productId}`;
+    return this.http.get<ProductRes>(url);
   }
 
   
