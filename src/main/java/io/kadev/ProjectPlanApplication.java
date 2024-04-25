@@ -16,9 +16,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -61,7 +58,7 @@ public class ProjectPlanApplication implements CommandLineRunner {
         return new CorsFilter(source);
     }
 
-    @Component
+/*    @Component
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public class SimpleCorsFilter implements Filter {
 
@@ -91,5 +88,5 @@ public class ProjectPlanApplication implements CommandLineRunner {
         @Override
         public void destroy() {
         }
-    }
+    }*/
 }
