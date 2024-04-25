@@ -19,7 +19,7 @@ import io.kadev.repositories.ProjectRepository;
 @Mapper(componentModel = "spring")
 public interface ValueMapper {
 
-	@Mapping(target = "chargesFixesCommunes", source = "chargeFixesCommunes")
+	@Mapping(target = "chargesFixesCommunes", source = "chargesFixesCommunes")
 	Project toProjectEntity(ProjectRequestDto projectRequestDto);
 
 	ProjectResponseDto toProjectResponseDto(Project project);

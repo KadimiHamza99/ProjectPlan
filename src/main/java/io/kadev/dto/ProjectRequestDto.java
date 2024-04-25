@@ -16,5 +16,5 @@ public class ProjectRequestDto {
 	private String nom;
 	@Min(value = 0,message="Les couts fixes ne peuvent pas etre negatifs !")
 	@NotNull
-	private double chargeFixesCommunes;
+	private double chargesFixesCommunes;
 }

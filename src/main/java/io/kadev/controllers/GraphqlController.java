@@ -28,7 +28,7 @@ public class GraphqlController {
     @MutationMapping
     public ProjectResponseDto createProjectWithProducts(@Argument CreateProjectWithProductsInput input) {
         try{
-            ProjectRequestDto projectRequestDto = new ProjectRequestDto(input.getNom(), input.getChargeFixesCommunes());
+            ProjectRequestDto projectRequestDto = new ProjectRequestDto(input.getNom(), input.getChargesFixesCommunes());
             ProjectResponseDto projectOutput = service.createNewProject(projectRequestDto);
             if(input.getProducts() != null){
                 for (ProductInput p : input.getProducts()) {

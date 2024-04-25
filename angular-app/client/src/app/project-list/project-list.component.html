@@ -6,13 +6,13 @@
         <!-- Nom du projet -->
         <ng-container matColumnDef="nom">
         <th mat-header-cell *matHeaderCellDef>Nom du Projet</th>
-        <td mat-cell *matCellDef="let project">{{project.nom}}</td>
+        <td mat-cell *matCellDef="let project" (click)="redirectToProjectDetails(project)">{{project.nom}}</td>
         </ng-container>
     
         <!-- Charges Fixes Communes -->
         <ng-container matColumnDef="chargesFixesCommunes">
         <th mat-header-cell *matHeaderCellDef>Charges Fixes Communes</th>
-        <td mat-cell *matCellDef="let project">{{project.coutsFixesCommunes }}</td>
+        <td mat-cell *matCellDef="let project">{{project.chargesFixesCommunes }}</td>
         </ng-container>
     
         <!-- Chiffre d'Affaire Total -->

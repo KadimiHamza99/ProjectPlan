@@ -14,8 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { ApolloModule, Apollo } from 'apollo-angular';
-
+import { ApolloModule } from 'apollo-angular';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { ApolloModule, Apollo } from 'apollo-angular';
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule,
-    ApolloModule
+    ApolloModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

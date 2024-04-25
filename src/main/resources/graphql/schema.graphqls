@@ -1,6 +1,6 @@
 input CreateProjectWithProductsInput {
     nom: String!
-    chargeFixesCommunes: Int!
+    chargesFixesCommunes: Float!
     products: [ProductInput]
 }
 
@@ -17,7 +17,7 @@ input ProductInput {
 type ProjectResponseDto{
     id: ID!
     nom: String!
-    chargeFixesCommunes: Int!
+    chargesFixesCommunes: Float!
     resultatsExploitation: Float!
     quantiteTotal: Int!
     products: [ProduitResponseDto]

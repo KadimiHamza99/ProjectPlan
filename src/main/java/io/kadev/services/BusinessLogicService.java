@@ -127,7 +127,7 @@ public class BusinessLogicService implements BusinessLogicInterface {
 		try {
 			Project projectToUpdate = projectRepo.findById(id).orElseThrow(()->new ProjectNotFoundException("Project Not found"));
 			projectToUpdate.setNom(projectRequestDto.getNom());
-			projectToUpdate.setChargesFixesCommunes(projectRequestDto.getChargeFixesCommunes());
+			projectToUpdate.setChargesFixesCommunes(projectRequestDto.getChargesFixesCommunes());
 			projectRepo.save(projectToUpdate);
 			projectResponse = mapper.toProjectResponseDto(projectToUpdate);
 			return projectResponse;
